@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>犯罪情報 - すしグラ</title>
+    <meta name="description" content="すしグラサーバーの現在の犯罪情報">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/sanitize.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/crimes.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="https://i.postimg.cc/9MJVKV5z/sushigura.png" alt="すしグラ">
+            </a>
+            <div class="nav-links">
+                <a href="crimes.html" class="nav-link">犯罪情報</a>
+                <div class="social-links">
+                    <a href="https://discord.gg/z8EUJbPvbQ" class="social-link discord" target="_blank">
+                        <svg viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831178,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"></path>
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/Sushigura_" class="social-link twitter" target="_blank">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-button" title="ホームに戻る">
+        ←
+    </a>
+
+    <!-- 犯罪情報ヒーロー -->
+    <section class="crimes-hero">
+        <div class="crimes-content">
+            <h1 class="crimes-title">犯罪情報</h1>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="crime-search" placeholder="強盗名で検索..." class="search-input">
+                <div class="search-icon">🔍</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 犯罪リスト -->
+    <section class="crimes-list">
+        <div class="container">
+            <!-- 犯罪1: 店舗強盗 -->
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">店舗強盗</h2>
+                    <span class="crime-status kogata">小型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/tenpo.png" alt="店舗強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            街中にあるいろいんな店舗のレジを漁る強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">2~3名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">1名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 店舗強盗関連アイテム -->
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム(どちらでも可)</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/lockpick.png" alt="ロックピック">
+                            <h4>ロックピック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advancedlockpick.png" alt="高度なロックピック">
+                            <h4>高度なロックピック</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 犯罪2: 薬物取引 -->
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">ハウス強盗</h2>
+                    <span class="crime-status kogata">小型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/house.png" alt="ハウス強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            特定の家の中に忍び込んでものを奪う強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">2~3名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">1名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム(どちらでも可)</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/lockpick.png" alt="ロックピック">
+                            <h4>ロックピック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advancedlockpick.png" alt="高度なロックピック">
+                            <h4>高度なロックピック</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 犯罪3: カーチェイス -->
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">ATM強盗</h2>
+                    <span class="crime-status kogata">小型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/atm.png" alt="ATM強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            ATMを壊して盗む強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">2~3名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">1名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/mini_c4.png" alt="ミニc4">
+                            <h4>1種類目ミニc4</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_thermite.png" alt="弱めのテルミット">
+                            <h4>2種類目 弱めのテルミット</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/atm_gastank.png" alt="ガスタンク">
+                            <h4>3種類目 ガスタンク</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/lighter.png" alt="ライター">
+                            <h4>3種類目 ライター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_drill_mini.png" alt="ミニドリル">
+                            <h4>4種類目 ミニドリル</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_rope.png" alt="犯罪用ロープ">
+                            <h4>5種類目 犯罪用ロープ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advancedlockpick.png" alt="高度なロックピック">
+                            <h4>5種類目 高度なロックピック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/blowtorch.png" alt="BLOW TORCH">
+                            <h4>5種類目 BLOW TORCH</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/trojan_usb.png" alt="トロイの木馬">
+                            <h4>6種類目 トロイの木馬</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/WEAPON_BAT.png" alt="近接武器">
+                            <h4>6種類目 近接武器</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">フリーカ強盗</h2>
+                    <span class="crime-status juntyu">準中型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/fleeca.png" alt="フリーカ強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            フリーカ銀行を襲う強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">4名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">1名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/trojan_usb.png" alt="トロイの木馬">
+                            <h4>トロイの木馬</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/electronickit.png" alt="電子キット">
+                            <h4>電子キット</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">バンジェリコ強盗</h2>
+                    <span class="crime-status juntyu">準中型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/banje.png" alt="バンジェリコ強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            ジュエリー店を襲う強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">4名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">1名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/WEAPON_PISTOL.png" alt="ピストルなどの銃火器">
+                            <h4>ピストルなどの銃火器</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">客船強盗</h2>
+                    <span class="crime-status tyugata">中型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/yacht.png" alt="客船強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            豪華客船を襲う強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">6~12名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">10名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バッグ">
+                            <h4>犯罪用バッグ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">軍事物資強盗</h2>
+                    <span class="crime-status tyugata">中型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/gunzi.png" alt="軍事物資強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            軍事物資が積んである車両を強奪する強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">6~12名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">10名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/WEAPON_BULLPUPRIFLE_MK2.png" alt="銃">
+                            <h4>銃</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">飛行機墜落</h2>
+                    <span class="crime-status tyugata">中型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/plane.png" alt="飛行機墜落">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            飛行機が墜落させて飛行機の中身を強奪する強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">6~12名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">10名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/kq_radio_encoder.png" alt="ラジオエンコーダー">
+                            <h4>ラジオエンコーダー</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">アーティファクト強盗</h2>
+                    <span class="crime-status junoogata">準大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/artifact.png" alt="アーティファクト強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            アーティファクトを強盗する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">8~15名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">13名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/trojan_usb.png" alt="トロイの木馬">
+                            <h4>トロイの木馬</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バッグ">
+                            <h4>犯罪用バッグ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_cutter.png" alt="犯罪用カッター">
+                            <h4>犯罪用カッター</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">ヒューメインラボ強盗</h2>
+                    <span class="crime-status junoogata">準大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/humain.png" alt="ヒューメインラボ強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            アーティファクトを強盗する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">8~15名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">13名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/WEAPON_BULLPUPRIFLE_MK2.png" alt="銃">
+                            <h4>銃</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/diving_bottle.png" alt="酸素ボンベ">
+                            <h4>酸素ボンベ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/diving_gear.png" alt="ダイビングギア">
+                            <h4>ダイビングギア</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">飛行場襲撃</h2>
+                    <span class="crime-status junoogata">準大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/hikoujou.png" alt="飛行場襲撃">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            飛行機の中身や車を強盗する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">8~15名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">13名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バッグ">
+                            <h4>銃</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_laptop.png" alt="犯罪用ラップトップ">
+                            <h4>犯罪用ラップトップ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/lockpick.png" alt="ロックピック">
+                            <h4>ロックピック</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">ボブキャット強盗</h2>
+                    <span class="crime-status junoogata">準大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/bobcat.png" alt="ボブキャット強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            ボブキャットの中に入って強奪する強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">8~15名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">13名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/thermite.png" alt="テルミット">
+                            <h4>テルミット</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">武器屋強盗</h2>
+                    <span class="crime-status junoogata">準大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/bukiya.png" alt="武器屋強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            武器屋の武器や物資を強奪する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">8~15名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">13名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バック">
+                            <h4>犯罪用バック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_cutter.png" alt="犯罪用カッター">
+                            <h4>犯罪用カッター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/trojan_usb.png" alt="トロイの木馬">
+                            <h4>トロイの木馬</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">ユニオン強盗</h2>
+                    <span class="crime-status oogata">大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/union.png" alt="ユニオン強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            ユニオンの金庫の中身を強奪する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">10~18名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">15名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バック">
+                            <h4>犯罪用バック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_c4.png" alt="C4">
+                            <h4>C4</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/lockpick.png" alt="ロックピック">
+                            <h4>ロックピック(どちらでも可)</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advancedlockpick.png" alt="高度なロックピック">
+                            <h4>高度なロックピック(どちらでも可)</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">パレト強盗</h2>
+                    <span class="crime-status oogata">大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/pleto.png" alt="パレト強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            北にあるパレト銀行を襲う強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">10~18名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">15名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/laptop_blue.png" alt="青のラップトップ">
+                            <h4>青のラップトップ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advanceddecrypter.png" alt="青のデクリプター">
+                            <h4>青のデクリプター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/advanceddrill.png" alt="高度なドリル">
+                            <h4>高度なドリル</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">パシフィック強盗</h2>
+                    <span class="crime-status oogata">大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/pacific.png" alt="パシフィック強盗">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            街にある一番大きな銀行のパシフィック銀行を強盗する犯罪
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">10~18名</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">15名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/laptop_red.png" alt="赤のラップトップ">
+                            <h4>赤のラップトップ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/hardeneddecrypter.png" alt="赤のデクリプター">
+                            <h4>赤のデクリプター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/hardeneddrill.png" alt="赤の硬化ドリル">
+                            <h4>赤の硬化ドリル</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/disruptor.png" alt="ディスラプター">
+                            <h4>ディスラプター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/thermite.png" alt="テルミット">
+                            <h4>テルミット</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_c4.png" alt="C4">
+                            <h4>C4</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/lockpick.png" alt="ロックピック">
+                            <h4>ロックピック</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="crime-card fade-in">
+                <div class="crime-header">
+                    <h2 class="crime-name">カジノヘイスト</h2>
+                    <span class="crime-status tyouoogata">超大型</span>
+                </div>
+                <div class="crime-body">
+                    <div class="crime-image">
+                        <img src="./assets/images/casino.png" alt="カジノヘイスト">
+                    </div>
+                    <div class="crime-details">
+                        <p>
+                            街最大のギャンブルができるカジノでの強盗
+                        </p>
+                        <div class="crime-info">
+                            <div class="info-item">
+                                <div class="info-label">警察官数</div>
+                                <div class="info-value">13名~無制限</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">最大犯罪者数</div>
+                                <div class="info-value">20名</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="crime-items">
+                    <h3>犯罪必要アイテム</h3>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <img src="./assets/images/casinopenthousecard.png" alt="ペントハウスカードキー">
+                            <h4>ペントハウスカードキー</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/smokegrenade.png" alt="スモークグレネード">
+                            <h4>スモークグレネード</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casinovaultcard.png" alt="金庫カードキー">
+                            <h4>金庫カードキー</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_bag.png" alt="犯罪用バック">
+                            <h4>犯罪用バック</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_device.png" alt="デバイス">
+                            <h4>デバイス</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_phone.png" alt="犯罪用スマホ">
+                            <h4>犯罪用スマホ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_fingerprinttape.png" alt="指紋テープ">
+                            <h4>指紋テープ</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_circuittester.png" alt="サーキットテスター">
+                            <h4>サーキットテスター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_cratejammer.png" alt="クレートジャマー">
+                            <h4>クレートジャマー</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casinomanagercard.png" alt="マネージャーカードキー">
+                            <h4>マネージャーカードキー</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/weapon_switchblade.png" alt="switchblade">
+                            <h4>switchblade</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/crime_cutter.png" alt="犯罪用カッター">
+                            <h4>犯罪用カッター</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/drill.png" alt="犯罪用ドリル">
+                            <h4>犯罪用ドリル</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casinomaintenancecard.png" alt="メンテナンスカードキー">
+                            <h4>メンテナンスカードキー</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/WEAPON_STICKYBOMB.png" alt="stickybomb">
+                            <h4>stickybomb</h4>
+                        </div>
+                        <div class="item-card">
+                            <img src="./assets/images/casino_stethoscope.png" alt="聴診器">
+                            <h4>聴診器</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+        </div>
+    </footer>
+
+    <script src="./assets/js/app.js"></script>
+</body>
+</html>
