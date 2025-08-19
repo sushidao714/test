@@ -445,3 +445,93 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初期化
     resultsCount.textContent = `${totalCrimes}件の犯罪情報`;
 });
+
+let currentFilter = 'all';
+
+// フィルターボタンの機能
+function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const crimeCards = document.querySelectorAll('.crime-card');
+    const searchInput = document.getElementById('crime-search');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // アクティブボタンの切り替え
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // 現在のフィルターを更新
+            currentFilter = button.dataset.filter;
+            
+            // フィルタリングと検索の適用
+            applyFilters();
+        });
+    });
+    
+    // 検索入力時にもフィルターを適用
+    searchInput.addEventListener('input', applyFilters);
+}
+
+// フィルターと検索を適用する関数
+function applyFilters() {
+    const searchInput = document.getElementById('crime-search');
+    const searchTerm = searchInput.value.toLowerCase();
+    const crimeCards = document.querySelectorAll('.crime-card');
+    let visibleCount = 0;
+    
+    crimeCards.forEach(card => {
+        const crimeName = card.querySelector('.crime-name').textContent.toLowerCase();
+        const crimeStatus = card.querySelector('.crime-status');
+        const statusClass = Array.from(crimeStatus.classList).find(cls => 
+            ['kogata', 'juntyu', 'tyugata', 'junoogata', 'oogata', 'tyouoogata'].includes(cls)
+        );
+        
+        // 検索条件とフィルター条件をチェック
+        const matchesSearch = crimeName.includes(searchTerm);
+        const matchesFilter = currentFilter === 'all' || statusClass === currentFilter;
+        
+        if (matchesSearch && matchesFilter) {
+            card.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+    
+    // 結果カウントの更新
+    updateResultsCount(visibleCount, crimeCards.length);
+}
+
+// 結果カウント表示の更新
+function updateResultsCount(visible, total) {
+    const resultsCount = document.getElementById('results-count');
+    const noResults = document.querySelector('.no-results') || createNoResultsElement();
+    
+    if (visible === 0) {
+        resultsCount.textContent = '該当する犯罪情報が見つかりませんでした';
+        noResults.classList.add('show');
+    } else {
+        resultsCount.textContent = `${total}件中 ${visible}件を表示`;
+        noResults.classList.remove('show');
+    }
+}
+
+// 結果なしメッセージ要素を作成
+function createNoResultsElement() {
+    const noResults = document.createElement('div');
+    noResults.className = 'no-results';
+    noResults.innerHTML = '<p>条件に合う犯罪情報が見つかりませんでした</p>';
+    document.querySelector('.crimes-list .container').appendChild(noResults);
+    return noResults;
+}
+
+// DOMContentLoadedイベントで初期化
+document.addEventListener('DOMContentLoaded', function() {
+    // 既存のコード...
+    
+    // フィルター機能の初期化
+    initializeFilters();
+    
+    // 初期の結果カウント表示
+    updateResultsCount(document.querySelectorAll('.crime-card').length, document.querySelectorAll('.crime-card').length);
+});
