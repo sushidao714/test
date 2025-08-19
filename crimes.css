@@ -1,0 +1,1191 @@
+@charset "utf-8";
+
+/* 基本設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #FF6B6B;
+    --secondary: #4ECDC4;
+    --accent: #45B7D1;
+    --dark: #2C3E50;
+    --light: #FFFFFF;
+    --gray: #F8F9FA;
+    --text: #2C3E50;
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+    --unified-primary: #FF6B6B;
+    --unified-secondary: #4ECDC4;
+    --unified-accent: #45B7D1;
+}
+
+body {
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    overflow-x: hidden;
+    background: #f8f9fa;
+    word-break: keep-all; /* 日本語の改行を改善 */
+    overflow-wrap: break-word; /* 長いテキストの処理を改善 */
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+    transform: translateY(0);
+}
+
+.header.hidden {
+    transform: translateY(-100%);
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.nav-link:hover::before {
+    left: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 0;
+    padding-left: 1rem;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+    transform: scale(1.1);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-right: 0;
+    padding-right: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2));
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover::before {
+    transform: translateX(0);
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+    transition: all 0.3s ease;
+}
+
+.discord { 
+    background: linear-gradient(45deg, #5865F2, #7289DA); 
+}
+
+.twitter { 
+    background: linear-gradient(45deg, #000000, #333333); 
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* 戻るボタン */
+.back-button {
+    position: fixed;
+    top: 100px;
+    left: 2rem;
+    background: white;
+    color: var(--primary);
+    padding: 1rem;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    background: var(--primary);
+    color: white;
+}
+
+/* 犯罪情報ヒーロー */
+.crimes-hero {
+    height: 60vh;
+    min-height: 300px; /* 最小高さ設定 */
+    background: linear-gradient(135deg, #22a7ff, #007d81);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    margin-top: 80px;
+}
+
+.crimes-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="warning" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,0 L20,20 L0,20 Z" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23warning)"/></svg>');
+    opacity: 0.3;
+}
+
+.crimes-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.crimes-title {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* レスポンシブなフォントサイズ */
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: slideInUp 1s ease;
+    white-space: nowrap; /* タイトルの改行防止 */
+}
+
+/* 犯罪リストセクション */
+.crimes-list {
+    background: #f8f9fa;
+    padding: 3rem 0;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 2rem;
+    align-items: start; /* グリッドアイテムを上揃え */
+}
+
+/* 犯罪カード */
+.crime-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    width: 100%;
+    min-width: 0; /* フレックスボックス内での縮小を許可 */
+}
+
+.crime-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.crime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* 犯罪ヘッダー */
+.crime-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem; /* アイテム間のギャップ */
+    min-height: 80px; /* 最小高さを設定 */
+}
+
+.crime-name {
+    font-size: clamp(1.2rem, 3vw, 1.8rem); /* レスポンシブなフォントサイズ */
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+    min-width: 0; /* テキストの縮小を許可 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+.crime-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap; /* ステータスラベルの改行防止 */
+    flex-shrink: 0; /* サイズ固定 */
+}
+
+/* 犯罪ヘッダーの背景色 */
+.crime-card:nth-child(1) .crime-header,
+.crime-card:nth-child(2) .crime-header,
+.crime-card:nth-child(3) .crime-header {
+    background: linear-gradient(135deg, rgba(0, 214, 196, 0.1), rgba(0, 214, 196, 0.05));
+}
+
+.crime-card:nth-child(4) .crime-header,
+.crime-card:nth-child(5) .crime-header {
+    background: linear-gradient(135deg, rgba(0, 83, 207, 0.1), rgba(0, 83, 207, 0.05));
+}
+
+.crime-card:nth-child(6) .crime-header,
+.crime-card:nth-child(7) .crime-header,
+.crime-card:nth-child(8) .crime-header {
+    background: linear-gradient(135deg, rgba(111, 0, 214, 0.1), rgba(111, 0, 214, 0.05));
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .crime-header {
+    background: linear-gradient(135deg, rgba(214, 0, 186, 0.1), rgba(214, 0, 186, 0.05));
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .crime-header {
+    background: linear-gradient(135deg, rgba(218, 0, 0, 0.1), rgba(218, 0, 0, 0.05));
+}
+
+.crime-card:nth-child(17) .crime-header,
+.crime-card:nth-child(18) .crime-header {
+    background: linear-gradient(135deg, rgba(231, 216, 0, 0.1), rgba(231, 216, 0, 0.05));
+}
+
+/* ステータスの色設定 */
+.crime-status.investigating {
+    background: #e78f00;
+}
+
+.crime-status.kogata {
+    background: #00d6c4;
+}
+
+.crime-status.juntyu {
+    background: #0053cf;
+}
+
+.crime-status.tyugata {
+    background: #6f00d6;
+}
+
+.crime-status.junoogata {
+    background: #d600ba;
+}
+
+.crime-status.oogata {
+    background: #da0000;
+}
+
+.crime-status.tyouoogata {
+    background: #e7d800;
+    color: #333;
+}
+
+/* 犯罪カードの番号別色設定 */
+.crime-card:nth-child(1),
+.crime-card:nth-child(2),
+.crime-card:nth-child(3) { 
+    border-left-color: #00d6c4; 
+}
+
+.crime-card:nth-child(4),
+.crime-card:nth-child(5) { 
+    border-left-color: #0053cf; 
+}
+
+.crime-card:nth-child(6),
+.crime-card:nth-child(7),
+.crime-card:nth-child(8) { 
+    border-left-color: #6f00d6; 
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) { 
+    border-left-color: #d600ba; 
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) { 
+    border-left-color: #da0000; 
+}
+
+.crime-card:nth-child(17),
+.crime-card:nth-child(18) { 
+    border-left-color: #e7d800; 
+}
+
+/* 犯罪名の色設定 */
+.crime-card:nth-child(1) .crime-name,
+.crime-card:nth-child(2) .crime-name,
+.crime-card:nth-child(3) .crime-name {
+    color: #00d6c4;
+}
+
+.crime-card:nth-child(4) .crime-name,
+.crime-card:nth-child(5) .crime-name {
+    color: #0053cf;
+}
+
+.crime-card:nth-child(6) .crime-name,
+.crime-card:nth-child(7) .crime-name,
+.crime-card:nth-child(8) .crime-name {
+    color: #6f00d6;
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .crime-name {
+    color: #d600ba;
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .crime-name {
+    color: #da0000;
+}
+
+.crime-card:nth-child(17) .crime-name,
+.crime-card:nth-child(18) .crime-name {
+    color: #e7d800;
+}
+
+/* 犯罪ボディ */
+.crime-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.crime-image {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.crime-image img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.crime-details {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.crime-details p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 犯罪情報グリッド - 改善されたレスポンシブ */
+.crime-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    background: #f8f9fa;
+    padding: 1.2rem;
+    border-radius: 10px;
+    border-left: 4px solid;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    white-space: nowrap;
+}
+
+/* 情報アイテムのボーダー色設定 */
+.crime-card:nth-child(1) .info-item,
+.crime-card:nth-child(2) .info-item,
+.crime-card:nth-child(3) .info-item {
+    border-left-color: #00d6c4;
+}
+
+.crime-card:nth-child(4) .info-item,
+.crime-card:nth-child(5) .info-item {
+    border-left-color: #0053cf;
+}
+
+.crime-card:nth-child(6) .info-item,
+.crime-card:nth-child(7) .info-item,
+.crime-card:nth-child(8) .info-item {
+    border-left-color: #6f00d6;
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .info-item {
+    border-left-color: #d600ba;
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .info-item {
+    border-left-color: #da0000;
+}
+
+.crime-card:nth-child(17) .info-item,
+.crime-card:nth-child(18) .info-item {
+    border-left-color: #e7d800;
+}
+
+/* 犯罪アイテムセクション */
+.crime-items {
+    background: #f1f3f4;
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.crime-items h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+    word-break: keep-all;
+}
+
+.crime-items h3::before {
+    content: "📦";
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* 犯罪アイテムタイトルの色設定 */
+.crime-card:nth-child(1) .crime-items h3,
+.crime-card:nth-child(2) .crime-items h3,
+.crime-card:nth-child(3) .crime-items h3 {
+    color: #00d6c4;
+}
+
+.crime-card:nth-child(4) .crime-items h3,
+.crime-card:nth-child(5) .crime-items h3 {
+    color: #0053cf;
+}
+
+.crime-card:nth-child(6) .crime-items h3,
+.crime-card:nth-child(7) .crime-items h3,
+.crime-card:nth-child(8) .crime-items h3 {
+    color: #6f00d6;
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .crime-items h3 {
+    color: #d600ba;
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .crime-items h3 {
+    color: #da0000;
+}
+
+.crime-card:nth-child(17) .crime-items h3,
+.crime-card:nth-child(18) .crime-items h3 {
+    color: #e7d800;
+}
+
+/* アイテムグリッド - 固定サイズ */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
+    gap: 1rem;
+    padding: 0;
+    justify-content: start; /* center から start に変更 */
+}
+
+/* アイテムカード - 固定サイズ */
+.item-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    width: 100%;
+    min-width: 120px;
+    max-width: 160px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0 auto; /* 中央寄せ */
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* アイテムカードのホバー時ボーダー色設定 */
+.crime-card:nth-child(1) .item-card:hover,
+.crime-card:nth-child(2) .item-card:hover,
+.crime-card:nth-child(3) .item-card:hover {
+    border-color: #00d6c4;
+}
+
+.crime-card:nth-child(4) .item-card:hover,
+.crime-card:nth-child(5) .item-card:hover {
+    border-color: #0053cf;
+}
+
+.crime-card:nth-child(6) .item-card:hover,
+.crime-card:nth-child(7) .item-card:hover,
+.crime-card:nth-child(8) .item-card:hover {
+    border-color: #6f00d6;
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .item-card:hover {
+    border-color: #d600ba;
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .item-card:hover {
+    border-color: #da0000;
+}
+
+.crime-card:nth-child(17) .item-card:hover,
+.crime-card:nth-child(18) .item-card:hover {
+    border-color: #e7d800;
+}
+
+.item-card img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
+}
+
+.item-card h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+    line-height: 1.2;
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    width: 100%;
+    height: 2.4em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.item-quantity {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* 数量バッジの色設定 */
+.crime-card:nth-child(1) .item-quantity,
+.crime-card:nth-child(2) .item-quantity,
+.crime-card:nth-child(3) .item-quantity {
+    background: #00d6c4;
+}
+
+.crime-card:nth-child(4) .item-quantity,
+.crime-card:nth-child(5) .item-quantity {
+    background: #0053cf;
+}
+
+.crime-card:nth-child(6) .item-quantity,
+.crime-card:nth-child(7) .item-quantity,
+.crime-card:nth-child(8) .item-quantity {
+    background: #6f00d6;
+}
+
+.crime-card:nth-child(n+9):nth-child(-n+13) .item-quantity {
+    background: #d600ba;
+}
+
+.crime-card:nth-child(n+14):nth-child(-n+16) .item-quantity {
+    background: #da0000;
+}
+
+.crime-card:nth-child(17) .item-quantity,
+.crime-card:nth-child(18) .item-quantity {
+    background: #e7d800;
+    color: #333;
+}
+
+/* フッター */
+.footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.footer p {
+    opacity: 0.8;
+}
+
+/* アニメーション */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    .items-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, calc(20% - 0.8rem)));
+        max-width: 100%;
+        justify-content: start;
+    }
+    
+    .item-card {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .crimes-title {
+        font-size: 2.5rem;
+        white-space: normal; /* モバイルでは改行を許可 */
+    }
+
+    .crime-header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 1rem;
+    }
+
+    .crime-name {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .crime-body {
+        padding: 0;
+    }
+
+    .crime-image {
+        padding: 1rem;
+    }
+
+    .crime-details {
+        padding: 0 1rem 1rem;
+    }
+
+    .crime-info {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .info-item {
+        padding: 1rem;
+    }
+
+    .back-button {
+        top: 80px;
+        left: 1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .container {
+        padding: 0 0.5rem;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .items-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, calc(25% - 0.75rem)));
+    }
+
+    .item-card {
+        width: 120px;
+        height: 120px;
+        padding: 0.8rem;
+    }
+
+    .item-card img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .item-card h4 {
+        font-size: 0.65rem;
+        height: 2.2em;
+    }
+
+    .crime-items {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+
+    .crime-items h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .crimes-hero {
+        height: 40vh;
+        min-height: 250px;
+    }
+
+    .crimes-title {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 0 0.5rem;
+    }
+
+    .crime-card {
+        margin-bottom: 1rem;
+    }
+
+    .crime-header {
+        padding: 0.8rem;
+    }
+
+    .crime-name {
+        font-size: 1.3rem;
+    }
+
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .item-card {
+        min-width: 90px;
+        max-width: 110px;
+        height: 100px;
+        padding: 0.5rem;
+    }
+
+    .item-card img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .item-card h4 {
+        font-size: 0.6rem;
+        line-height: 1.1;
+        height: 2em;
+    }
+
+    .back-button {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    .social-link {
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-link svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .filter-buttons {
+        gap: 0.3rem;
+    }
+    
+    .filter-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0.8rem;
+        justify-content: center;
+    }
+
+    .item-card {
+        min-width: 100px;
+        max-width: 120px;
+        height: 120px;
+        padding: 0.8rem;
+    }
+
+    .item-card img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .item-card h4 {
+        font-size: 0.65rem;
+        height: 2.2em;
+    }
+}
+
+/* 検索セクション */
+.search-section {
+    background: #fff;
+    padding: 2rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 3rem;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-family: "Noto Sans JP", sans-serif;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #666;
+    pointer-events: none;
+}
+
+.search-results-count {
+    text-align: center;
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* 検索結果のハイライト削除 */
+
+/* 検索で非表示になったカード */
+.crime-card.hidden {
+    display: none !important;
+}
+
+/* 検索結果なしメッセージ */
+.no-results {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #666;
+    font-size: 1.2rem;
+    display: none;
+}
+
+.no-results.show {
+    display: block;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 0 1rem;
+    }
+    
+    .search-input {
+        padding: 0.8rem 1rem 0.8rem 2.5rem;
+        font-size: 1rem;
+    }
+    
+    .search-icon {
+        left: 1rem;
+        font-size: 1rem;
+    }
+    .filter-container {
+        max-width: 100%;
+    }
+    
+    .filter-label {
+        font-size: 0.9rem;
+    }
+    
+    .filter-buttons {
+        gap: 0.4rem;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* フィルターコンテナ */
+.filter-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #ddd;
+    background: white;
+    color: #666;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: "Noto Sans JP", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.filter-btn.active {
+    color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* 各フィルターボタンの色設定 */
+.filter-btn[data-filter="all"].active {
+    background: #333;
+    border-color: #333;
+}
+
+.filter-btn[data-filter="kogata"].active {
+    background: #00d6c4;
+    border-color: #00d6c4;
+}
+
+.filter-btn[data-filter="juntyu"].active {
+    background: #0053cf;
+    border-color: #0053cf;
+}
+
+.filter-btn[data-filter="tyugata"].active {
+    background: #6f00d6;
+    border-color: #6f00d6;
+}
+
+.filter-btn[data-filter="junoogata"].active {
+    background: #d600ba;
+    border-color: #d600ba;
+}
+
+.filter-btn[data-filter="oogata"].active {
+    background: #da0000;
+    border-color: #da0000;
+}
+
+.filter-btn[data-filter="tyouoogata"].active {
+    background: #e7d800;
+    border-color: #e7d800;
+    color: #333;
+}
+
+/* 追加のテキスト処理 */
+.crime-details p,
+.info-label,
+.info-value,
+.item-card h4,
+.crime-items h3 {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* 日本語フォント最適化 */
+body {
+    font-feature-settings: "palt" 1; /* 日本語文字間の調整 */
+    text-rendering: optimizeLegibility;
+}

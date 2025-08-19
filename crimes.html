@@ -57,6 +57,20 @@
                 <input type="text" id="crime-search" placeholder="強盗名で検索..." class="search-input">
                 <div class="search-icon">🔍</div>
             </div>
+            
+            <!-- 新規追加：犯罪タイプフィルター -->
+            <div class="filter-container">
+                <div class="filter-label">犯罪タイプで絞り込み：</div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">すべて</button>
+                    <button class="filter-btn" data-filter="kogata">小型</button>
+                    <button class="filter-btn" data-filter="juntyu">準中型</button>
+                    <button class="filter-btn" data-filter="tyugata">中型</button>
+                    <button class="filter-btn" data-filter="junoogata">準大型</button>
+                    <button class="filter-btn" data-filter="oogata">大型</button>
+                    <button class="filter-btn" data-filter="tyouoogata">超大型</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -854,7 +868,7 @@
                             <h4>マネージャーカードキー</h4>
                         </div>
                         <div class="item-card">
-                            <img src="./assets/images/WEAPON_SWITCHBLADE.png" alt="switchblade">
+                            <img src="./assets/images/weapon_switchblade.png" alt="switchblade">
                             <h4>switchblade</h4>
                         </div>
                         <div class="item-card">
@@ -891,5 +905,4 @@
 
     <script src="./assets/js/app.js"></script>
 </body>
-
 </html>
