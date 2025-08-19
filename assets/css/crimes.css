@@ -938,6 +938,16 @@ body {
         width: 20px;
         height: 20px;
     }
+
+    .filter-buttons {
+        gap: 0.3rem;
+    }
+    
+    .filter-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
 }
 
 @media (max-width: 767px) {
@@ -1016,13 +1026,6 @@ body {
     pointer-events: none;
 }
 
-.search-results-count {
-    text-align: center;
-    color: #666;
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
 /* 検索結果のハイライト削除 */
 
 /* 検索で非表示になったカード */
@@ -1058,6 +1061,109 @@ body {
         left: 1rem;
         font-size: 1rem;
     }
+    .filter-container {
+        max-width: 100%;
+    }
+    
+    .filter-label {
+        font-size: 0.9rem;
+    }
+    
+    .filter-buttons {
+        gap: 0.4rem;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* フィルターコンテナ */
+.filter-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #ddd;
+    background: white;
+    color: #666;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: "Noto Sans JP", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.filter-btn.active {
+    color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* 各フィルターボタンの色設定 */
+.filter-btn[data-filter="all"].active {
+    background: #333;
+    border-color: #333;
+}
+
+.filter-btn[data-filter="kogata"].active {
+    background: #00d6c4;
+    border-color: #00d6c4;
+}
+
+.filter-btn[data-filter="juntyu"].active {
+    background: #0053cf;
+    border-color: #0053cf;
+}
+
+.filter-btn[data-filter="tyugata"].active {
+    background: #6f00d6;
+    border-color: #6f00d6;
+}
+
+.filter-btn[data-filter="junoogata"].active {
+    background: #d600ba;
+    border-color: #d600ba;
+}
+
+.filter-btn[data-filter="oogata"].active {
+    background: #da0000;
+    border-color: #da0000;
+}
+
+.filter-btn[data-filter="tyouoogata"].active {
+    background: #e7d800;
+    border-color: #e7d800;
+    color: #333;
 }
 
 /* 追加のテキスト処理 */
